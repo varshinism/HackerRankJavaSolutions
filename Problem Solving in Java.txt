@@ -561,5 +561,33 @@ public static int diagonalDifference(List<List<Integer>> arr) {
 
     }
 
-31.Repeated String
+31.Cut the sticks
+    public static Integer minoflist(List<Integer> arr) {
+        int min = Integer.MAX_VALUE;
+        for (int i = 0 ; i < arr.size(); i++) {
+            min = Math.min(min, arr.get(i));
+        }
+        return min;
+    }
+    public static List<Integer> cutTheSticks(List<Integer> arr) {
+        int sizelist = arr.size();
+        List<Integer> result = new ArrayList<>();
+        while (sizelist > 0) {
+            result.add(sizelist);
+            int min = minoflist(arr);
+            System.out.println(min);
+            for (int i = 0 ; i < sizelist; i++) {
+                if (arr.get(i) - min > 0) {
+                    arr.set(i, arr.get(i) - min);
+                } else {
+                    System.out.println(i);
+                    arr.remove(i);
+                    i--;
+                    sizelist = arr.size();
+                }
+            } 
+        }
+        return result;
+    }
+
 32.Jumping on the Clouds
