@@ -1,0 +1,565 @@
+1. Solve Me First
+	public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int a;
+        a = in.nextInt();
+        int b;
+        b = in.nextInt();
+        int sum;
+        sum = solveMeFirst(a, b);
+        System.out.println(sum);
+	}
+
+2.Simple Array Sum
+	public static int simpleArraySum(List<Integer> ar) {
+    	// Write your code here
+        int sum =0, n = ar.size();
+        for(int i = 0; i<n; i++){
+            int element = ar.get(i);
+            sum = sum + element;
+        }
+        return sum;
+	}
+
+3.Compare the Triplets
+    public static List<Integer> compareTriplets(List<Integer> a, List<Integer> b){
+        int AlicePoints =0, BobPoints = 0;
+        for(int i=0; i<3; i++){
+            if(a.get(i)>b.get(i)) AlicePoints += 1;
+            else if(b.get(i)>a.get(i)) BobPoints += 1; 
+        }
+        List<Integer> res = new ArrayList<>();
+        res.add(AlicePoints);
+        res.add(BobPoints);
+        return res;
+    }
+
+4.A Very Big Sum
+    public static long aVeryBigSum(List<Long> ar) {
+    // Write your code here
+        long sum=0, n= ar.size();
+        for(int i=0; i<n; i++){
+            long element = ar.get(i);
+            sum += element;
+        }
+        return sum;
+
+    }
+
+5.Diagonal Difference
+public static int diagonalDifference(List<List<Integer>> arr) {
+    // Write your code here
+        int leftSum=0, rightSum=0, n_row=arr.size();
+        int row=0, col=0;
+        
+        //left diagonal
+        while(row<n_row){
+            int ele = arr.get(row).get(col);
+            leftSum += ele;
+            row += 1;
+            col += 1;
+        }
+        
+        //right diagonal
+        int n_col = n_row;
+        row = 0;
+        col = n_col-1;
+        while(row<n_row){
+            int ele = arr.get(row).get(col);
+            rightSum += ele;
+            row += 1;
+            col -= 1;
+        }
+        
+        //absolute difference
+        int res = Math.abs(leftSum-rightSum);
+        return res;
+    }
+
+6.Plus Minus
+	public static void plusMinus(List<Integer> arr) {
+    	// Write your code here
+        int pos=0, neg=0, zero=0, n=arr.size();
+        for(int i=0; i<n; i++){
+            if(arr.get(i)<0) neg++;
+            else if (arr.get(i)>0) pos++;
+            else zero++;
+        }
+        double posRatio = pos/(1.0*n),
+                negRatio = neg/(1.0*n),
+                zeroRatio = zero/(1.0*n);
+        
+        System.out.println(String.format("%.6f", posRatio));
+        System.out.println(String.format("%.6f", negRatio));
+        System.out.println(String.format("%.6f", zeroRatio));
+    	}
+
+7.Staircase
+    public static void staircase(int n) {
+    // Write your code here
+        //int space = n-1;
+        for(int i=1; i<=n; i++){
+            for(int j=1; j<=(n-i); j++) System.out.print(" ");
+            for(int j=1; j<=i; j++) System.out.print("#");
+            System.out.println();
+            //space -= 1;
+        }
+
+    }
+
+8.Mini-Max Sum
+    public static void miniMaxSum(List<Integer> arr) {
+    // Write your code here
+         Collections.sort(arr);
+        long max=0, min=0; 
+        int n=arr.size();
+        for(int i=0;i<n-1;i++){
+            min+=arr.get(i);
+        }
+        for(int i=1;i<n;i++){
+            max+=arr.get(i);
+        }
+        System.out.println(min+" "+max);
+
+    }
+
+9.Birthday Cake Candles
+    public static int birthdayCakeCandles(List<Integer> candles) {
+    // Write your code here
+        int count=0, n=candles.size(); 
+        int maxValue = candles.get(0); //Obtener Valor Maximo 
+        for (int i = 1; i < n; i++) { 
+            if (candles.get(i) > maxValue) { 
+                maxValue = candles.get(i); 
+            } 
+        }
+
+        if (maxValue > 0) {
+            for (int i = 0; i < n; i++) {
+                if (maxValue == candles.get(i)) {
+                    count++; 
+                }      
+            }
+            return count;
+        }
+        else {
+            return 0;
+        }
+    }
+
+
+10.Time Conversion
+    public static String timeConversion(String s) {
+    // Write your code here
+        StringBuilder sb = new StringBuilder();
+
+        if(s.charAt(s.length()-2) == 'A'){
+            sb.append(s.substring(0,3).replace("12", "00"));
+            sb.append(s.substring(3,s.length()-2));
+        } else {
+            if(s.startsWith("12")){
+                sb.append("12");
+                for(int i = 2; i < s.length()-2; i++){
+                    sb.append(s.charAt(i));
+                }
+            } else {
+                sb.append(String.valueOf(Integer.parseInt(s.substring(0,2)) + 12));
+                for(int i = 2; i < s.length()-2; i++){
+                    sb.append(s.charAt(i));
+                }
+            }
+        }
+        System.out.println(sb.toString());
+        return sb.toString();     
+
+    }
+
+11.Grading Students
+    public static List<Integer> gradingStudents(List<Integer> grades) {
+    // Write your code here
+        for(int i=0; i<grades.size(); i++){
+            int ele = grades.get(i);
+            int rem = ele%5;
+            if(ele>=38 && rem>2) ele = ele-rem+5;
+            grades.set(i, ele);
+        }
+        return grades;
+
+    }
+
+12.Apple and Orange
+    public static void countApplesAndOranges(int s, int t, int a, int b, List<Integer> apples, List<Integer> oranges) {
+    // Write your code here
+        int tot_apples = 0, tot_oranges = 0;
+        for(int i=0; i<apples.size(); i++)
+        {
+            int d=apples.get(i);
+            int pos=a+d;
+            if(pos>=s && pos<=t) tot_apples++;
+        }
+        for(int i=0; i<oranges.size(); i++)
+        {
+            int d=oranges.get(i);
+            int pos=b+d;
+            if(pos>=s && pos<=t) tot_oranges++;
+        }
+        System.out.println(tot_apples);
+        System.out.println(tot_oranges);
+
+    }
+
+13.Number Line Jumps
+    public static String kangaroo(int x1, int v1, int x2, int v2) {
+    // Write your code here
+        if(v2>v1) return "NO";
+        int gap = Math.abs(x2-x1);
+        while(x1 != x2)
+        {
+            x1 = x1+v1;
+            x2 = x2+v2;
+            int newgap = Math.abs(x2-x1);
+            if(newgap >= gap) return "NO";
+        }
+        return "YES";
+
+    }
+
+14.Between Two Sets
+    public static boolean checkFactor(List<Integer> a, List<Integer> b, int num ){
+        for (int val: a){
+            if(num%val != 0)
+                return false;
+        }
+        for(int val: b){
+            if(val%num != 0)
+                return false;
+        }
+        return true;
+    }
+    public static int getTotalX(List<Integer> a, List<Integer> b) {
+    // Write your code here
+        int count = 0;
+        Collections.sort(a);
+        Collections.sort(b);
+        int setALastElement = a.get(a.size()-1);
+        int setBLastElement = b.get(b.size()-1);
+        for(int i=setALastElement; i<=setBLastElement; i++){
+            if(checkFactor(a, b, i)){
+                count++;
+            }
+        }
+        return count;
+
+
+    }
+
+15.Breaking the Records
+    public static List<Integer> breakingRecords(List<Integer> scores) {
+    // Write your code here
+        int min = scores.get(0);
+        int max = scores.get(0);
+        int mincount = 0;
+        int maxcount = 0;
+        
+        for(int num:scores)
+        {
+            if(num>max)
+            {
+                max = num;
+                maxcount++;
+            }
+            else if(num<min)
+            {
+                min = num;
+                mincount++;
+            }
+        }
+        List<Integer> ans = Arrays.asList(maxcount, mincount);
+        return ans;
+
+    }
+
+16.Subarray Division
+    public static int birthday(List<Integer> s, int d, int m) {
+    // Write your code here
+        if(m>s.size()) return 0;
+        int count=0; //keeps the track of length of the sub array
+        int sum=0; // keeps the track of sum of the sub array
+        int ways=0; //keeps the track of number of ways possible
+        int i=0;
+    
+        while(i<s.size())
+        {
+            sum = sum + s.get(i);
+            count++;
+            if(count == m && sum == d)
+            {
+                count--;
+                sum = sum-s.get(i-count);
+                ways++;
+            }  
+            else if(count == m)
+            {
+                count--;
+                sum = sum-s.get(i-count);  
+            }
+            i++;
+        }
+        return ways;
+    }
+
+17.Divisible Sum Pairs
+    public static int divisibleSumPairs(int n, int k, List<Integer> ar) {
+    // Write your code here
+        int count=0;
+        for(int i=0; i<n; i++){
+            for(int j=i+1; j<n; j++){
+                if((ar.get(i)+ar.get(j))%k == 0) count++;
+            }
+        }
+        return count;
+
+    }
+
+18.Migratory Birds
+    public static int migratoryBirds(List<Integer> arr) {
+    // Write your code here
+        Map <Integer, Integer> treemap = new TreeMap<>();
+        int type = -1;
+        for(int i=0; i<arr.size(); i++){
+            if(treemap.containsKey(arr.get(i))){
+                int val = treemap.get(arr.get(i));
+                treemap.put(arr.get(i), val+1);
+            }
+            else{
+                treemap.put(arr.get(i), 1);
+            }
+        }
+        int maxcount = Integer.MIN_VALUE;
+        for(Integer key:treemap.keySet()){
+            if(treemap.get(key)>maxcount){
+                maxcount = treemap.get(key);
+                type=key;
+            }
+        }
+        return type;
+    }
+
+19.Day of the Programmer
+    public static String dayOfProgrammer(int year) {
+    // Write your code here
+        int result = 0;
+        String date = "";
+
+        if ((year % 4 == 0) & (year < 1918 || year % 400 == 0 || year % 100 != 0)) {
+            result = 256 - 244;
+
+        }else if(year == 1918){
+            result = 26;
+        } 
+        else {
+            result = 256 - 243;
+        }
+        date = result + ".09." + year;
+        return date;
+    }
+
+20.Bill Division
+    public static void bonAppetit(List<Integer> bill, int k, int b) {
+    // Write your code here
+        int totalBill = 0;
+        for(int i = 0 ; i<bill.size(); i++){
+            if(k == i){
+                bill.remove(i);    
+            }
+            totalBill += bill.get(i);
+        }
+
+        totalBill = totalBill/2;
+
+        if(totalBill == b){
+            System.out.println("Bon Appetit");
+        }else{
+            int charged = b-totalBill;
+            System.out.println(charged);
+        }
+
+    }
+
+21.Sales by Match
+    public static int sockMerchant(int n, List<Integer> ar) {
+    // Write your code here
+        Map<Integer, Integer> sockMap = new HashMap<>();
+        
+        //Perform counting socks
+        for(int sock : ar) {
+            int frequency = sockMap.getOrDefault(sock, 0);
+            sockMap.put(sock, frequency + 1);
+        }
+        
+        int pairs = 0;
+        for(int frequency : sockMap.values()) {
+            if(frequency >= 2) pairs += frequency/2;
+        }
+        
+        return pairs;
+
+    }
+
+22.Drawing Book
+    public static int pageCount(int n, int p) {
+    // Write your code here
+            int flipForward = p/2; 
+            int flipBackward = n/2 - flipForward;
+            return Math.min(flipForward, flipBackward);
+        
+
+    }
+
+23.Counting Valleys
+    public static int countingValleys(int steps, String path) {
+    // Write your code here
+        char[] csteps = path.toCharArray();
+        int terrain=0;
+        int count = 0;   
+        for (int i = 0; i < steps; i++)
+        {         
+               switch (csteps[i])
+                {
+                    case 'U':
+                        terrain++;
+                        break;
+                    case 'D':
+                    if (terrain == 0 ){
+                        count++;
+                    }
+                        terrain--;
+                        break;
+                }
+        }
+        return count;
+
+    }
+
+24.Electronics Shop
+    static int getMoneySpent(int[] keyboards, int[] drives, int b) {
+        /*
+         * Write your code here.
+         */
+         int max=-1;
+         for(int i=0; i<keyboards.length; i++){
+             for(int j=0; j<drives.length; j++){
+                 int totalBill = keyboards[i] + drives[j];
+                 if(totalBill == b){
+                     return totalBill;
+                 }
+                 if(totalBill < b && totalBill > max){
+                     max = totalBill;
+                 }
+             }
+         }
+         return max;
+
+    }
+
+25.Cats and a Mouse
+    static String catAndMouse(int x, int y, int z) {
+        if((Math.abs(x-z))==(Math.abs(y-z))){
+            return "Mouse C";
+        }
+        else if((Math.abs(x-z))<(Math.abs(y-z))){
+            return "Cat A";
+        }
+        return "Cat B";
+        
+    }
+
+26.The Hurdle Race
+    public static int hurdleRace(int k, List<Integer> height) {
+    // Write your code here
+        int dose = 0;
+        int max = Collections.max(height);
+        for(int i=0; i<height.size(); i++){
+            if(k>max){
+                return 0;
+            }
+            else{
+                dose = max-k;
+            }
+        }
+        return dose;
+
+    }
+
+27.Utopian Tree
+    public static int utopianTree(int n) {
+    // Write your code here
+        int treeHeight = 1;
+        
+        for(int cycle = 1; cycle <= n; cycle++) {
+            //Cycle is even means summer time
+            if(cycle % 2 == 0) treeHeight++;
+            //Otherwise it's spring
+            else treeHeight = treeHeight * 2;
+        }
+        return treeHeight;
+    
+
+28.Angry Professor
+    public static String angryProfessor(int k, List<Integer> a) {
+    // Write your code here
+        int count=0;
+        for(int i=0;i<a.size();i++)
+        {
+            if(a.get(i)<=0)
+                count++;
+        }
+        if(k<=count)
+            return "NO";
+        else 
+            return "YES";
+
+    }
+
+29.Beautiful Days at the Movies
+    public static int beautifulDays(int i, int j, int k) {
+    // Write your code here
+        int count=0;
+        while(i<=j)
+        {
+            int rev=0;
+            int a=i;
+            while(a>=10)
+            {
+                rev=(rev*10)+a%10;
+                a = a/10;
+            }
+            rev=(rev*10)+a%10;
+            
+            if(((Math.abs(rev-i)%k)==0))
+            {   
+                count++;
+            }
+            i++;
+        }
+        return count;
+
+    }
+
+30.Viral Advertising
+    public static int viralAdvertising(int n) {
+    // Write your code here
+        int total = 5;
+        int likes = total/2;
+        for (int i=1; i<n;i++)
+        {
+            
+            total = (total / 2)*3;
+            likes += total / 2;
+        }
+        return likes;
+
+    }
+
+31.Repeated String
+32.Jumping on the Clouds
