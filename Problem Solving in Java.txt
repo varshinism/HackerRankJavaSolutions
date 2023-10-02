@@ -670,4 +670,215 @@ public static int diagonalDifference(List<List<Integer>> arr) {
     }
 
 36.Find the Median
+	public static int findMedian(List<Integer> arr){
+	//Performing sorting the given collection
+		arr.sort(null);
+		int middle = arr.size()/2;
+		return arr.get(middle);
+	}
+
+37.Closest Numbers 
+    public static List<Integer> closestNumbers(List<Integer> arr) {
+    // Write your code here
+        // Sort the input array in ascending order
+        arr.sort(null);
+        
+        // Initialize a list to store the closest numbers
+        List<Integer> result = new ArrayList<>();
+        
+        // Get the size of the input array
+        int n = arr.size();
+        
+        // Initialize a variable to track the minimum distance
+        int minDistance = Integer.MAX_VALUE;
+        
+        // Iterate through the sorted array to find closest pairs
+        for (int i = 1; i < n; i++) {
+            // Get the two adjacent elements
+            int A = arr.get(i - 1);
+            int B = arr.get(i);
+            
+            // Calculate the absolute distance between A and B
+            int distance = Math.abs(B - A);
+            
+            // Check if the distance is equal to the current
+            // minimum distance
+            if (distance == minDistance) {
+                // Add A and B to the result as they have the 
+                // same minimum distance
+                result.add(A);
+                result.add(B);
+            }
+            
+            // Check if the distance is less than the current 
+            // minimum distance
+            if (distance < minDistance) {
+                // Update the minimum distance
+                minDistance = distance;
+                
+                // Clear the result list and add A and B as 
+                // new closest numbers
+                result.clear();
+                result.add(A);
+                result.add(B);
+            }
+        }
+        
+        // Return the list of closest numbers
+        return result;
+        
+
+    }
+
+38.Sherlock and Array
+    public static String balancedSums(List<Integer> arr) {
+    // Write your code here
+        int rightSum = 0;
+        for(int i=0; i<arr.size(); i++){
+            rightSum += arr.get(i);
+        }
+        int leftSum =0;
+        for(int i=0; i<arr.size(); i++){
+            rightSum -= arr.get(i);
+            if(leftSum == rightSum){
+                return "YES";
+            }
+            else{
+                leftSum = leftSum + arr.get(i);
+            }
+        }
+        return "NO";
+
+    }
+
+39.Jim and the Orders
+    public static List<Integer> jimOrders(List<List<Integer>> orders) {
+    // Write your code here
+        List<Integer> ans = new ArrayList<>();
+            int[][] serveOrder = new int [orders.size()][3];
+            for(int i = 0; i < orders.size() ; i++){
+                serveOrder[i] = new int[]{ i+1, orders.get(i).get(0), orders.get(i).get(0) + orders.get(i).get(1) };
+            }
+            Arrays.sort(serveOrder,(a,b)-> a[2] == b[2] ? a[0] - b[0] : a[2] - b[2]);
+            for(int[] customer : serveOrder){
+                ans.add(customer[0]);
+            }
+            return ans;
+
+    }
+
+40.Mark and Toys
+    public static int maximumToys(List<Integer> prices, int k) {
+    // Write your code here
+        int maxToysBought = 0;
+        int sum = 0;
+        Collections.sort(prices);
+        for(int i=0; i<prices.size(); i++){
+            sum += prices.get(i);
+            if(sum <= k){
+                maxToysBought++;
+            }
+        }
+        return maxToysBought;
+
+    }
+
+41.Intro to Tutorial Challenges
+    public static int introTutorial(int V, List<Integer> arr) {
+    // Write your code here
+        for(int i = 0; i < arr.size(); i++) if(arr.get(i) == V) return i;
+    return 0;
+
+    }
+
+42.Insertion Sort - Part 1
+    public static void insertionSort1(int n, List<Integer> arr) {
+    // Write your code here
+        for (int i = 1; i < n; i++) {
+            int pos = arr.get(i);
+            int j;
+            for (j = i - 1; j >= 0 && arr.get(j) > pos; j--) {
+                arr.set(j + 1, arr.get(j));
+                System.out.println(display(arr));
+
+            }
+            arr.set(j + 1, pos);
+        }
+        System.out.println(display(arr));
+    }
+
+    private static String display(List<Integer> newArr) {
+        int[] newArr1 = newArr.stream().mapToInt(i -> i).toArray();
+        return Arrays.stream(newArr1)
+                .mapToObj(j -> String.valueOf(j))
+                .collect(Collectors.joining(" "));
+
+    }
+
+43.Insertion Sort - Part 2
+public static void insertionSort2(int n, List<Integer> arr){
+for(int index = 1; index < n; index++) {
+        int value = arr.get(index);
+        int position =  index - 1; 
+        
+        while(position >= 0 && arr.get(position) > value) {
+            arr.set(position + 1, arr.get(position));
+            position--;
+        }
+        
+        arr.set(position + 1, value);
+        print(arr);
+    }
+}
+
+private static void print(List<Integer> array) {
+    System.out.println(
+        array.stream()
+        .map(item -> String.valueOf(item))
+        .collect(Collectors.joining(" "))
+    );
+
+44. Running Time of Algorithms
+	public static int runningTime(List<Integer> arr) {
+    	// Write your code here
+	    int n = arr.size();
+	    int shifts = 0;
+	    
+	    for(int i = 1; i < n; i++) {
+	        int value = arr.get(i);
+	        int pos = i - 1;
+	        
+	        while(pos >= 0 && value < arr.get(pos)) {
+	            arr.set(pos + 1, arr.get(pos));
+	            
+	            pos--;
+	            shifts++;
+	        }
+	        arr.set(pos + 1, value);
+	    }
+	    return shifts;
+	}
+
+45. Cavity Map
+    public static List<String> cavityMap(List<String> grid) {
+    // Write your code here
+        for(int rowIdx=1;rowIdx<grid.size()-1;rowIdx++) {
+            String row = grid.get(rowIdx);
+            StringBuilder rowBuffer = new StringBuilder(row);
+            for(int colIdx=1;colIdx<row.length()-1;colIdx++) {
+                int topValue = grid.get(rowIdx - 1).charAt(colIdx) - '0';
+                int bottomValue = grid.get(rowIdx + 1).charAt(colIdx) - '0';
+                int leftValue = grid.get(rowIdx).charAt(colIdx - 1) - '0';
+                int rightValue = grid.get(rowIdx).charAt(colIdx + 1) - '0';
+                int cellValue = row.charAt(colIdx) - '0';
+                if (cellValue > topValue && cellValue > bottomValue &&  cellValue > leftValue && cellValue > rightValue) {
+                    rowBuffer.replace(colIdx, colIdx + 1, "X");
+                }
+            }
+            grid.set(rowIdx, rowBuffer.toString());
+        }
+        return grid;
+    }
+
+
 
